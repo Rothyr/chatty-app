@@ -59,7 +59,7 @@ class App extends Component {
     return (
       <div>
         <nav className="navbar">
-          <img src="/styles/pingu-logo2.png" href="/" className="navbar-logo"></img>
+          <img src="/styles/pingu-logo.png" href="/" className="navbar-logo"></img>
           <a href="/" className="navbar-brand">Ping-U</a>
           <p className="navbar-subtitle">Noot! Noot!</p>
         </nav>
