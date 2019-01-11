@@ -20,19 +20,19 @@ Ping-U is a simple chat application that allows users to set a username and post
 
 ### Dependencies
 
-* babel-core
-* babel-loader
-* babel-preset-es2015
-* babel-preset-react
-* css-loader
-* node-sass
-* sass-loader
-* sockjs-client
-* style-loader
-* webpack
-* webpack-dev-server
-* react
-* react-dom
-* express
-* ws
-* uuid
+* Babel Core
+* Babel Loader
+* Babel Preset ES2015
+* Babel Preset React
+* CSS Loader
+* Node Sass
+* Sass Loader
+* Sockjs Client
+* Style Loader
+* Webpack
+* Webpack Dev Server
+* React
+* React DOM
+* Express
+* WS
+* UUID
