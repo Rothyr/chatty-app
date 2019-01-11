@@ -1,18 +1,22 @@
-// server.js
+// Server.js
 
 const express = require('express');
 const SocketServer = require('ws').Server;
 const PORT = 3001;
 const webSocket = require('ws');
+const uuidv4 = require('uuid/v4');
 
-// Create a new express server
+//Express Server
 const server = express()
-   // Make the express server serve static assets (html, javascript, css) from the /public folder
+
   .use(express.static('public'))
   .listen(PORT, '0.0.0.0', 'localhost', () => console.log(`Listening on ${ PORT }`));
 
-// Create the WebSockets server
+// Create the WebSockets Server
 const wss = new SocketServer({ server });
+
+//Count Number of Users Connected
+let userCount = 0;
 
 wss.broadcast = function(data) {
   wss.clients.forEach(function each(client) {
@@ -22,13 +26,41 @@ wss.broadcast = function(data) {
   });
 }
 
+
 wss.on('connection', (ws) => {
-  console.log('Client connected');
+  userCount ++;
+  wss.broadcast(userCount);
+  console.log('Client connected. Number of users logged-in: ' + userCount);
+
   ws.on('message', function incoming(data) {
-    wss.broadcast(data);
-      }
-  );
+    const parsed = JSON.parse(data);
+    switch(parsed.type) {
+      case 'postMessage':
+        const incoming = {
+          type: 'incomingMessage',
+          id: uuidv4(),
+          username: parsed.username,
+          content: parsed.content
+        };
+        wss.broadcast(JSON.stringify(incoming));
 
-  ws.on('close', () => console.log('Client disconnected'));
+        break;
 
+      case 'postNotification':
+        const notification = {
+          type: 'incomingNotification',
+          id: uuidv4(),
+          content: parsed.content
+        };
+        wss.broadcast(JSON.stringify(notification));
+
+        break;
+    }
+  })
+
+  ws.on('close', () => {
+    userCount --;
+    wss.broadcast(userCount);
+    console.log('Client disconnected. Number of users logged-in: ' + userCount);
   });
+});

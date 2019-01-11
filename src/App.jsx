@@ -3,18 +3,16 @@ import React, {Component} from 'react';
 import Messages from './Message.jsx';
 import ChatBar from './ChatBar.jsx';
 
-// const WebSocket = require('ws');
-
-
+// App Component
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
       currentUser: {
-        name: 'Bob'
+        name: 'Default-User'+ Math.floor((Math.random() * 1000) + 1)
       },
-      messages: []
+      messages: [],
+      onlineUsers: 0
     };
 
     //Socket Declaration
@@ -23,7 +21,6 @@ class App extends Component {
     //Binding Area
     this.enterMessage = this.enterMessage.bind(this);
     this.changeUser = this.changeUser.bind(this);
-
   }
 
   changeUser(user) {
@@ -31,7 +28,6 @@ class App extends Component {
       currentUser: {
         name: user
       }
-
     })
   }
 
@@ -41,17 +37,21 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log('componentDidMount <App />');
     console.log('Connected to the Server!');
 
-    this.socket.onopen = (event) => {
+    this.socket.onopen = () => {
       console.log('Socket is open!');
     }
 
     this.socket.onmessage = (event) => {
       const parsedMessage = JSON.parse(event.data);
+      if (typeof parsedMessage === 'number') {
+        this.setState({
+          onlineUsers: parsedMessage
+        })
+      } else {
       this.enterMessage(parsedMessage);
-
+      }
     }
   }
 
@@ -59,24 +59,19 @@ class App extends Component {
     return (
       <div>
         <nav className="navbar">
-          <img src="/styles/pingu-logo.png" href="/" className="navbar-logo"></img>
+          <img src="/styles/icons/pingu-logo2.png" href="/" className="navbar-logo"></img>
           <a href="/" className="navbar-brand">Ping-U</a>
           <p className="navbar-subtitle">Noot! Noot!</p>
+
+          <h2 className="user-counter">Online Users: {this.state.onlineUsers}</h2>
         </nav>
 
         <Messages messages={this.state.messages} />
 
-        <ChatBar user={this.state.currentUser} changeUser={this.changeUser} addMessage={this.socket} />
+        <ChatBar user={this.state.currentUser} changeUser={this.changeUser} socket={this.socket} />
       </div>
     )
   }
 }
 
 export default App;
-
-
-//
-// <footer class="chatbar">
-//   <input class="chatbar-username" placeholder="Your Name (Optional)" />
-//   <input class="chatbar-message" placeholder="Type a message and hit ENTER" />
-// </footer>
