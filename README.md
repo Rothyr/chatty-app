@@ -1,7 +1,7 @@
-React Boilerplate
-=====================
+Chatty App (Chatty App Project)
+================================s
 
-
+Ping-U is a simple chat application that allows users to set a username and post messages to others using the application. It also displays the number of users currently using the application.
 
 
 ## Getting Started
@@ -11,23 +11,28 @@ React Boilerplate
 3. Start the web server using the `npm start` command. The app will be served at <http://localhost:3000/>.
 4. Go to <http://localhost:3000/> in your browser.
 
-### Static Files
+### Screenshots
+!["Screenshot of the Ping-U Opening Page"](https://github.com/Rothyr/chatty-app/blob/master/docs/screenshot-step1.png)
+!["Screenshot of Ping-U Username Change"](https://github.com/Rothyr/chatty-app/blob/master/docs/screenshot-step2.png)
+!["Screenshot of Ping-U Message Sent"](https://github.com/Rothyr/chatty-app/blob/master/docs/screenshot-step3.png)
+!["Screenshot of Ping-U Two Users Logged In"](https://github.com/Rothyr/chatty-app/blob/master/docs/screenshot-step4.png)
 
-You can store static files like images, fonts, etc in the `build` folder.
-
-For example, if you copy a file called my_image.png into the build folder you can access it using `http://localhost:3000/build/my_image.png`.
-
-### Linting
-
-This boilerplate project includes React ESLint configuration.
-
-```
-npm run lint
-```
 
 ### Dependencies
 
-* React
-* Webpack
-* [babel-loader](https://github.com/babel/babel-loader)
-* [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
+* babel-core
+* babel-loader
+* babel-preset-es2015
+* babel-preset-react
+* css-loader
+* node-sass
+* sass-loader
+* sockjs-client
+* style-loader
+* webpack
+* webpack-dev-server
+* react
+* react-dom
+* express
+* ws
+* uuid
