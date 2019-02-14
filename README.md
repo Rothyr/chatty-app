@@ -1,5 +1,5 @@
 Chatty App (Chatty App Project)
-================================s
+================================
 
 Ping-U is a simple chat application that allows users to set a username and post messages to others using the application. It also displays the number of users currently using the application.
 
